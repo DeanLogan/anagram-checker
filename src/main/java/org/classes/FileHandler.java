@@ -6,7 +6,7 @@ public class FileHandler {
 
     // Constructor with no parameters (sets a default value for filePath)
     public FileHandler(){
-        this.filePath = "output.txt";
+        this.filePath = "output.csv";
     }
 
     // Constructor with a parameter to allow filePath to be specified
@@ -18,7 +18,6 @@ public class FileHandler {
         File file = new File(this.filePath);
         FileWriter fileWriter = new FileWriter(file, true);
         fileWriter.write(content);
-        fileWriter.write(System.lineSeparator()); // Add a newline character
         fileWriter.close();
     }
 
