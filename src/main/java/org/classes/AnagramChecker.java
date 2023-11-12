@@ -47,8 +47,15 @@ public class AnagramChecker implements IAnagramChecker {
      * @return true if the strings are anagrams, false otherwise.
      */
     public boolean areAnagrams(String str1, String str2) {
+        if(str1 == null || str2 == null){
+            return false;
+        }
         str1 = str1.replaceAll(" ", "").toLowerCase();
         str2 = str2.replaceAll(" ", "").toLowerCase();
+
+        if(!str1.matches("[a-zA-Z]+") && !str2.matches("[a-zA-Z]+")){
+            return false;
+        }
 
         // Checks the cache
         String cacheKey = anagramCache.combinationStoredInCache(str1, str2); // Checks if either possible combinations of the cache key is present in the HashMap (is null if neither is in the HashMap)
