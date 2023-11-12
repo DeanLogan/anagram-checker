@@ -2,6 +2,8 @@
 
 This is part of a timed assessment to assess my java skills. The project can be built using Gradle.
 
+The logging requirement is in a seperate branch, this is purely because it makes the CLI harder to read so I wanted to ensure that there would be a branch with an easy to read CLI.
+
 # Anagram Checker 
 Develop a program to accept a username and 2 text values and return an indicator whether the values are an anagram.
 A word is an anagram of another word if both use the same letters in the same quantity, but arranged differently.  For example 'friend' and 'finder'.
