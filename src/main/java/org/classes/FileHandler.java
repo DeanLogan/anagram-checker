@@ -1,33 +1,25 @@
 package org.classes;
-import java.io.*;
 
-public class FileHandler {
-    private final String filePath;
+import java.io.IOException;
 
-    // Constructor with no parameters (sets a default value for filePath)
-    public FileHandler(){
-        this.filePath = "output.csv";
-    }
+/**
+ * The FileHandler interface defines methods for reading and appending content to files.
+ */
+public interface FileHandler {
 
-    // Constructor with a parameter to allow filePath to be specified
-    public FileHandler(String filePath) {
-        this.filePath = filePath;
-    }
+    /**
+     * Reads the content from a file and returns it as a string.
+     *
+     * @return The content of the file as a string.
+     * @throws IOException if there is an error while reading from the file.
+     */
+    String readFile() throws IOException;
 
-    public void appendToFile(String content) throws IOException {
-        File file = new File(this.filePath);
-        FileWriter fileWriter = new FileWriter(file, true);
-        fileWriter.write(content);
-        fileWriter.close();
-    }
-
-    public String readFile() throws IOException {
-        StringBuilder content = new StringBuilder();
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(this.filePath));
-        String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            content.append(line).append(System.lineSeparator());
-        }
-        return content.toString();
-    }
+    /**
+     * Appends the provided content to a file.
+     *
+     * @param content The content to append to the file.
+     * @throws IOException if there is an error while writing to the file.
+     */
+    void appendToFile(String content) throws IOException;
 }

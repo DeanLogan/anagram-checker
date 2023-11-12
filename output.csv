@@ -6,3 +6,54 @@ dog,god,Anagrams
 planet,tenpla,Anagrams
 triangle,integral,Anagrams
 sup,hi,Not Anagrams
+sup,his,Not Anagrams
+silent,listen,Anagrams
+debitcard,badcredit,Anagrams
+schoolmaster,theclassroom,Anagrams
+openai,iaenpo,Anagrams
+flower,lowerf,Anagrams
+listen,silent,Anagrams
+god,dog,Anagrams
+cinema,iceman,Anagrams
+hello,world,Not Anagrams
+banana,orange,Not Anagrams
+apple,apples,Not Anagrams
+eleven,twelve,Not Anagrams
+abacus,casuba,Anagrams
+bookstore,storebook,Anagrams
+earth,heart,Anagrams
+bat,tab,Anagrams
+silent,quiet,Not Anagrams
+listen,whisper,Not Anagrams
+palindrome,emordnilap,Anagrams
+programming,gammingrop,Anagrams
+software,hardware,Not Anagrams
+race,pace,Not Anagrams
+star,rats,Not Anagrams
+tool,loot,Anagrams
+plane,panel,Not Anagrams
+cup,cup,Anagrams
+yellow,olwel,yellaw,Not Anagrams
+car,arc,Anagrams
+cat,tac,Anagrams
+envelope,velopeno,Anagrams
+keyboard,wordkeab,Not Anagrams
+dog,cat,Not Anagrams
+mouse,house,Anagrams
+listen,silent,Anagrams
+cup,pucc,Not Anagrams
+keyboard,boardkeay,Not Anagrams
+dog,bird,Not Anagrams
+software,faroswet,Not Anagrams
+chicken,knecihc,Anagrams
+moon,moons,Not Anagrams
+desserts,stressed,Anagrams
+python,nopyth,Not Anagrams
+flower,flwoer,Not Anagrams
+java,avaj,Anagrams
+candle,eldnac,Anagrams
+spider,derisp,Anagrams
+glacier,icergla,Anagrams
+twelve,eleven,Not Anagrams
+sup,ups,Not Anagrams
+sup,pus,Not Anagrams
