@@ -1,12 +1,14 @@
 package org.classes;
 
 import java.io.*;
+import java.util.logging.Logger;
 
 /**
  * CsvFileHandler is a class that implements the FileHandler interface to handle CSV file operations.
  */
 public class CsvFileHandler implements FileHandler {
     private final String filePath;
+    private final Logger logger = Logger.getLogger(CsvFileHandler.class.getName());
 
     /**
      * Constructor with no parameters. Sets a default value for the file path.
@@ -32,9 +34,13 @@ public class CsvFileHandler implements FileHandler {
      */
     public void appendToFile(String content) throws IOException {
         File file = new File(this.filePath);
-        FileWriter fileWriter = new FileWriter(file, true);
-        fileWriter.write(content);
-        fileWriter.close();
+        try (FileWriter fileWriter = new FileWriter(file, true)) {
+            fileWriter.write(content);
+            logger.info("Appended content to CSV file: " + content);
+        } catch (IOException e) {
+            logger.severe("Error while appending to CSV file: " + e.getMessage());
+            throw e;
+        }
     }
 
     /**
@@ -45,10 +51,15 @@ public class CsvFileHandler implements FileHandler {
      */
     public String readFile() throws IOException {
         StringBuilder content = new StringBuilder();
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(this.filePath));
-        String line;
-        while ((line = bufferedReader.readLine()) != null) {
-            content.append(line).append(System.lineSeparator());
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(this.filePath))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                content.append(line).append(System.lineSeparator());
+            }
+            logger.info("Read content from CSV file.");
+        } catch (IOException e) {
+            logger.severe("Error while reading from CSV file: " + e.getMessage());
+            throw e;
         }
         return content.toString();
     }

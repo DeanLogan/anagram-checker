@@ -3,6 +3,7 @@ package org.classes;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * AnagramCache is a class that implements the Cache interface to provide a caching mechanism for storing
@@ -12,6 +13,8 @@ public class AnagramCache implements Cache {
 
     // A map to store the cache data where keys are string combinations and values are results
     private final Map<String, String> cacheStorage;
+    private final Logger logger = Logger.getLogger(AnagramCache.class.getName());
+
 
     /**
      * Constructor for AnagramCache. Initializes the cache storage and populates it by reading data from a file.
@@ -26,18 +29,20 @@ public class AnagramCache implements Cache {
      */
     @Override
     public void populateCache() {
-        FileHandler csvFileHandler = FileHandlerFactory.createFileHandler("csv");
+        org.classes.FileHandler csvFileHandler = FileHandlerFactory.createFileHandler("csv");
         String fileContent = "";
         try {
             fileContent = csvFileHandler.readFile();
+            logger.info("Cache populated from file.");
         } catch (IOException e) {
+            logger.severe("Error while populating cache from file: " + e.getMessage());
             throw new RuntimeException(e);
         }
 
         for (String line : fileContent.split(System.lineSeparator())) {
             String[] parts = line.split(",");
             if (parts.length == 3) {
-                String key = parts[0] + "," + parts[1]; // Use the same key format as for cache
+                String key = parts[0] + "," + parts[1];
                 cacheStorage.put(key, parts[2]);
             }
         }
@@ -48,6 +53,7 @@ public class AnagramCache implements Cache {
      */
     @Override
     public void printCacheContents() {
+        logger.info("Printing cache contents.");
         System.out.println("Cache Contents:");
         for (Map.Entry<String, String> entry : cacheStorage.entrySet()) {
             System.out.println("Key: " + entry.getKey() + ", Value: " + entry.getValue());
@@ -63,15 +69,13 @@ public class AnagramCache implements Cache {
      */
     @Override
     public void addToCache(String str1, String str2, boolean areAnagrams) {
-        // Create a key by concatenating the two strings
         String cacheKey = generateCacheKey(str1, str2);
-
-        // Store the result in the cache
         if (areAnagrams) {
             cacheStorage.put(cacheKey, "Anagrams");
         } else {
             cacheStorage.put(cacheKey, "Not Anagrams");
         }
+        logger.info("Added result to cache: " + cacheKey + " => " + (areAnagrams ? "Anagrams" : "Not Anagrams"));
     }
 
     /**
@@ -82,7 +86,9 @@ public class AnagramCache implements Cache {
      */
     @Override
     public boolean checkCacheKeyResult(String cacheKey) {
-        return "Anagrams".equals(cacheStorage.get(cacheKey));
+        boolean result = "Anagrams".equals(cacheStorage.get(cacheKey));
+        logger.info("Checked cache for key: " + cacheKey + " => " + (result ? "Anagrams" : "Not Anagrams"));
+        return result;
     }
 
     /**
@@ -96,12 +102,18 @@ public class AnagramCache implements Cache {
     public String combinationStoredInCache(String str1, String str2) {
         String firstKey = generateCacheKey(str1, str2);
         String secondKey = generateCacheKey(str2, str1);
+        String cacheKey = null;
         if (cacheStorage.containsKey(firstKey)) {
-            return firstKey;
+            cacheKey = firstKey;
         } else if (cacheStorage.containsKey(secondKey)) {
-            return secondKey;
+            cacheKey = secondKey;
         }
-        return null;
+        if (cacheKey != null) {
+            logger.info("Cache hit for combination: " + str1 + " and " + str2);
+        } else {
+            logger.info("Cache miss for combination: " + str1 + " and " + str2);
+        }
+        return cacheKey;
     }
 
     /**
@@ -130,10 +142,11 @@ public class AnagramCache implements Cache {
             contentBuilder.append(System.lineSeparator());
         }
 
-        // Call the appendToFile method to write the content to the file
         try {
             csvFileHandler.appendToFile(contentBuilder.toString());
+            logger.info("Cache saved to file.");
         } catch (IOException e) {
+            logger.severe("Error while saving cache to file: " + e.getMessage());
             throw new RuntimeException(e);
         }
     }
