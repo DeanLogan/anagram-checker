@@ -1,7 +1,5 @@
 package org.classes;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
@@ -38,6 +36,7 @@ public class Main {
             String str1 = scanner.nextLine();
             System.out.print("Enter the second string: ");
             String str2 = scanner.nextLine();
+            // does a check to reject the strings if they have any spaces, numbers and/or special characters
             if(str1.matches("[a-zA-Z]+") || str2.matches("[a-zA-Z]+")){
                 if (anagramChecker.areAnagrams(str1, str2)) {
                     System.out.println(str1 + " and " + str2 + " are anagrams.");
